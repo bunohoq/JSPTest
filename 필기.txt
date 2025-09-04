@@ -1,0 +1,304 @@
+새프로젝트
+1. Dynamic Web Project
+2. Project name: "JSPTest"
+   > Context root: "jsp"
+   > web.xml 체크
+
+Java - 언어
+Oracle - 회사명, 소프트웨어(DBMS)
+SQL - 언어
+HTML - 언어
+CSS - 언어
+JavaScript - 언어
+jQuery - 라이브러리
+Servlet - 기술
+JSP - 기술
+
+
+Servlet
+- 자바 기반
+- 자바 코드 > 관리 용이
+- 클라이언트 코드 > 관리 불편
+
+JSP
+- HTML 기반
+- 클라이언트 코드 > 관리 용이
+- 자바 코드 > 관리 약간 불편
+
+
+JSP, Java Server Pages
+- 자바를 사용해서 서버측에서 웹 페이지를 만드는 기술
+- 서블릿을 기반으로 생산성을 향상
+- JSP 페이지(파일)는 웹 페이지와 동일하게 취급 > 브라우저가 직접 호출 가능
+
+- src > main > webapp > "ex01.jsp"
+                      > "ex02.jsp"
+
+
+Servlet/JSP Container > 톰캣
+
+톰캣 입장 > JSP 페이지를 어떻게 처리하는지?
+1. 간단한 버전
+2. 정식 버전
+
+
+JSP 구성 요소
+
+1. JSP 지시자, JSP Directive
+	- <%@ %>
+	- JSP Container에게 페이지 처리를 위한 여러가지 상황을 전달
+	- page 지시자
+	- include 지시자
+	- taglib 지시자
+
+2. 스크립트 요소, Scripting Elements
+	- 자바 코드와 관련된 기능들
+	- <% %>
+	- 스크립틀릿, Scriptlet
+	- 익스프레션, Expression
+	- 선언부, Declaration
+
+3. 액션 태그, Action Tags
+	- <jsp:XXX>, <c:XXX>
+	- 프로그래밍 기능이 있는 태그
+
+4. 내장 객체, Built-in Objects
+	- 톰캣이 알아서 생성해서 개발자에게 제공하는 객체
+	
+
+
+
+page 지시자
+- "ex03.jsp"
+
+- JSP 페이지 실행과 관련된 여러가지 정보를 톰캣에게 알려주는 역할
+- JSP 페이지의 첫줄에 작성한다.
+- page 지시자를 여러개 작성 가능
+
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	a. language="java"
+		- JSP 페이지에서 사용할 프로그래밍 언어 지정
+	
+	b. contentType="text/html; charset=UTF-8"
+		- 동적으로 만들어진 웹 페이지에 대한 설정
+		- text/html: MIME 타입 > 돌려준 데이터 HTML 문서라는 것을 브라우저에게 알려주는 역할
+		- charset=UTF-8: 돌려준 데이터 HTML 문서의 인코딩
+	
+	c. pageEncoding="UTF-8"
+		- 현재 JSP 파일의 인코딩
+
+
+
+include 지시자
+- 조각 페이지 > 재사용 코드
+- webapp > "ex04.jsp"
+- webapp > "inc" > "login.jsp"
+
+
+
+스크립틀릿, Scriptlet + 익스프레션, Expression
+
+스크립틀릿, Scriptlet
+- <% %>
+- Script + Applet
+- HTML 영역에서 자바 문법을 사용할 수 있는 영역을 제공
+- 비즈니스 코드
+
+익스프레션, Expression
+- <%= %>
+- 자바의 값을 HTML 문서(소스의 일부)에 출력하는 역할
+- 화면에 보이는 값이 아니다.
+- 출력 코드
+
+- "ex05_scriptlet.jsp"
+
+
+
+선언부, Declaration
+- <%! %>
+- 일반 자바 객체로 대신한다.
+- 멤버 변수와 멤버 메서드를 만드는 영역을 제공
+- "ex06_declare.jsp"
+- Java Resources > src/main/java > "com.test.jsp" > "MyUtil.java"
+
+
+
+브라우저 > ex01.jsp 요청 > 톰캣 > ex01.jsp 접근 + 실행 > 톰캣이 JSP 페이지를 서블릿 클래스로 변환시킨다.(*****)
+
+
+
+
+내장 객체, Built-in Objects
+- 톰캣이 생성해서 제공한다.
+- 예약어로 제공
+- request, response, session, pageContext
+- out, application
+- config, page, exception
+
+***** pageContext, request, session, application
+	- 객체 내부에 사용자 데이터를 저장할 수 있는 컬렉션(Map)을 가지고 있다.
+	- void setAttribute(String key, Object value)
+	- Object getAttribute(String key)
+
+
+request
+- HttpSevletRequest
+- 서블릿의 doGet/doPost 첫번째 매개변수
+- 주로 클라이언트측에서 서버측으로 발생하는 모두 업무에 관여한다.
+
+1. 클라이언트에서 서버로 전송한 데이터를 가져오기
+	- request.getParameter()
+	- request.getParameterValues()
+	
+	- "ex07.jsp"	> 사용자 데이터 입력 + 전송하기 
+	- "ex07ok.jsp"	> 전송된 데이터를 수신
+	
+	- "ex08.jsp"
+	- "ex08ok.jsp"
+
+2. 클라이언트에서 서버로 전송한 데이터의 인코딩 처리
+	- request.setCharacterEncoding()
+
+3. 클라이언트에서 서버로 전송할 때의 여러가지 정보 확인
+	- "ex09_request.jsp"
+	- "inc/url.jsp"
+
+
+response
+- HttpServletResponse
+- 서블릿의 doGet/doPost의 두번째 매개변수
+- 주로 서버측에서 클라이언트측으로 발생하는 모든 업무에 관여한다.
+
+1. 돌려줄 HTML 페이지 제작
+	- response.getWriter() > PrintWriter > HTML 제작
+
+2. 돌려줄 HTML 페이지의 인코딩 설정
+	- resp.setCharacterEncoding("UTF-8");		//서블릿
+	- contentType="text/html; charset=UTF-8"	//JSP
+
+3. 돌려줄 HTML 페이지의 MIME 설정
+	- contentType="text/html; charset=UTF-8"	//JSP
+
+4. 페이지 이동하기
+	- "ex10_response_one.jsp"
+	- "ex10_response_two.jsp"
+
+
+
+
+pageContext
+- "ex11_pagecontext_one.jsp"
+- "ex11_pagecontext_two.jsp"
+
+
+
+내장 객체의 생명 주기
+- pageContext, request, session, application
+- 데이터 저장 가능 객체
+
+- pageContext: 생성(페이지 요청) ~ 소멸(페이지 반환)
+- request    : 생성(페이지 요청) ~ 소멸(페이지 반환)
+			   생성(페이지 요청) ~ 페이지 이동(forward()) ~ 소멸(다음페이지반환)
+- session	 : 생성(사용자가 사이트에 처음 방문) ~ 소멸(사용자가 사이트에서 나갈 때)
+- application: 생성(사이트에 첫번째 사용자가 방문) ~ 소멸(사이트에 마지막 사용자가 나갈 때)
+
+
+out
+- 출력 객체
+- "ex12_out.jsp"
+ 		   
+
+session & application
+- session(****************************************)
+- session: 데이터 저장 용도
+- application: 데이터 저장 용도
+
+- "ex13_session.jsp"
+- "ex13_session_2.jsp"
+- "ex13_session_3.jsp"
+
+- "ex14_session.jsp" //메인 페이지
+- "ex14_set.jsp"
+- "ex14_del.jsp"
+- "ex14_interval.jsp"
+- "ex14_reset.jsp"
+
+*** 웹은 비연결 지향이다.(Conntionless)
+- http://, https://
+- 브라우저가 요청 발생 > 연결 됨.
+- 서버가 페이지 제작 중 > 연결 됨.
+- 서버가 페이지 제작 완료 + 반환 > 연결 끊김.
+
+
+
+
+파일 업로드/다운로드
+
+단일 파일 업로드
+- "ex15.jsp"   //입력 
+- "ex15ok.jsp" //처리
+
+다중 파일 업로드
+- "ex16.jsp"   //입력 
+- "ex16ok.jsp" //처리
+
+
+
+이미지 뷰어
+- "ex17.jsp"	//메인 페이지
+- "ex17ok.jsp"  //업로드 처리 페이지
+- "ex17del.jsp" //삭제 처리 페이지
+
+
+자료실(탐색기)
+- "ex18.jsp"	 
+- "ex18ok.jsp"
+- "ex18del.jsp"
+
+
+
+EL + JSTL
+- JSP 페이지에서 자바를 없애자!!(이질적)
+- <% %>  -> JSTL
+- <%= %> -> EL  
+
+
+EL, Expression Language
+- 자바의 값을 문서에 출력
+- <%= %>의 역할과 같음(+ 기능)
+- "ex19_el.jsp"
+
+JSTL, Java Standard Tag Libary
+- 모양새는 태그의 형식을 가진다.
+- 프로그래밍 기능을 가지는 태그
+- "ex20_jstl.jsp"
+
+
+
+쿠키, Cookie
+- 브라우저의 기능 중 하나 > 데이터 저장소
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
