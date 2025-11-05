@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,22 +11,37 @@
 	</style>
 </head>
 <body>
-	<!-- ex21_cookie_2.jsp -->
+	<!-- ex22_cookie_2.jsp -->
 	<h1>두번째 페이지</h1>
 	
-	<div><%= session.getId() %></div>
+	<div>
+		<a href="ex22_cookie.jsp">첫번째 페이지</a>
+		<a href="ex22_cookie_2.jsp">두번째 페이지</a>
+		<a href="ex22_cookie_3.jsp">세번째 페이지</a>
+	</div>
 	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="js/cookie.js"></script>
 	<script src="https://bit.ly/4cMuheh"></script>
 	<script>
-		
-		console.log(getCookie('name'));
-		console.log(getCookie('kor'));
-		console.log(getCookie('eng'));
-		console.log(getCookie('math'));
-		
+	
+		if (getCookie('color') != null) {
+			
+			$('body').css('background-color', getCookie('color'));
+			
+		}
+	
 	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
